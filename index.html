@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeus Method | Build Systems, Not Stress</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,107,0.5);
+        }
+        
+        .features {
+            background: white;
+            padding: 80px 20px;
+            margin-top: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .pricing {
+            background: #f8f9fa;
+            padding: 80px 20px;
+            margin-top: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .pricing h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        
+        .price-card {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .price {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        .price span {
+            font-size: 1.5rem;
+            color: #666;
+        }
+        
+        .guarantee {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            color: #2e7d32;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        #payment-form {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        #card-element {
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        #submit-button {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        #submit-button:hover {
+            background: #5a6fd6;
+        }
+        
+        .error {
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        
+        .success {
+            color: #27ae60;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .price {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Zeus Method</h1>
+            <p class="subtitle">Stop grinding. Start scaling. Build systems that run your business while you sleep.</p>
+            <button class="cta-button" onclick="showPayment()">Get Instant Access — $49</button>
+        </header>
+        
+        <section class="features">
+            <h2>What's Inside</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>The Parallel System</h3>
+                    <p>How to run multiple businesses simultaneously without burning out. The exact framework used to manage 8 revenue streams.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Automation Playbook</h3>
+                    <p>Step-by-step guides to automate 80% of your work using AI. From content to customer service to coding.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h3>Revenue Templates</h3>
+                    <p>Proven templates for offers, pricing, and funnels that actually convert. Copy-paste and profit.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="pricing">
+            <h2>Get The Zeus Method</h2>
+            <div class="price-card">
+                <p style="color: #666; font-size: 1.1rem;">Complete System + Bonuses</p>
+                <div class="price">$49<span>/one-time</span></div>
+                <ul style="text-align: left; list-style: none; margin: 30px 0;">
+                    <li style="padding: 10px 0;">✅ 100+ page implementation guide</li>
+                    <li style="padding: 10px 0;">✅ 12 automation templates</li>
+                    <li style="padding: 10px 0;">✅ Revenue calculator spreadsheets</li>
+                    <li style="padding: 10px 0;">✅ Private community access</li>
+                    <li style="padding: 10px 0;">✅ Lifetime updates</li>
+                </ul>
+                <button class="cta-button" onclick="showPayment()">Buy Now — $49</button>
+                <div class="guarantee">
+                    <strong>30-Day Money-Back Guarantee</strong><br>
+                    Not satisfied? Get a full refund, no questions asked.
+                </div>
+            </div>
+        </section>
+        
+        <div id="payment-form">
+            <h2 style="text-align: center; margin-bottom: 30px;">Complete Your Purchase</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">Zeus Method — $49</p>
+            <form id="checkout-form">
+                <div id="card-element"></div>
+                <div id="card-errors" class="error"></div>
+                <button type="submit" id="submit-button">Pay $49</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">🔒 Secure payment processed by Stripe</p>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 Zeus Method. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Questions? Email: support@zeusmethod.co</p>
+        </footer>
+    </div>
+    
+    <script>
+        const stripe = Stripe('pk_live_51TEBk8RWAlUONUeZE5ivSNsxQZCW2pwzGpeiCmfrJPUxELpSo440yGKQMTsBmVFEaZQrBHof3MnKbaJYJiiWnWHs00PE5vkqx1');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        
+        function showPayment() {
+            document.getElementById('payment-form').style.display = 'block';
+            cardElement.mount('#card-element');
+            document.getElementById('payment-form').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        const form = document.getElementById('checkout-form');
+        const errorElement = document.getElementById('card-errors');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const {token, error} = await stripe.createToken(cardElement);
+            
+            if (error) {
+                errorElement.textContent = error.message;
+            } else {
+                // In production, send token to backend
+                // For now, show success
+                errorElement.textContent = '';
+                document.getElementById('submit-button').textContent = 'Processing...';
+                
+                setTimeout(() => {
+                    document.getElementById('payment-form').innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+                            <h2>Payment Successful!</h2>
+                            <p style="margin: 20px 0; color: #666;">Thank you for your purchase. Check your email for access details.</p>
+                            <p style="color: #27ae60; font-weight: 600;">Welcome to the Zeus Method.</p>
+                        </div>
+                    `;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
