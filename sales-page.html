@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Forward | ADHD-Friendly Productivity That Actually Works</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero .price-tag {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 30px 0;
+        }
+        
+        .hero .price-tag span {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: block;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,107,0.5);
+        }
+        
+        /* Problem Section */
+        .problem {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .problem h2 {
+            font-size: 2.2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .problem-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .problem-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        /* Solution Section */
+        .solution {
+            background: #f8f9fa;
+            padding: 60px 20px;
+        }
+        
+        .solution h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .feature-list {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: start;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .feature-text h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        /* What's Inside - NEW DESIGN */
+        .inside {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .inside-header {
+            margin-bottom: 40px;
+        }
+        
+        .inside-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .inside-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .tool-card {
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tool-card.purple {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .tool-card.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .tool-card.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .tool-card.blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .tool-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .tool-card p {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        /* What's Included List */
+        .included-section {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .included-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .included-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            text-align: left;
+        }
+        
+        .included-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .included-item::before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 30px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .cta-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .cta-box .price-display {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        
+        .cta-box .price-display span {
+            font-size: 1rem;
+            opacity: 0.8;
+            display: block;
+            font-weight: 400;
+        }
+        
+        .btn-large {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 20px 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+            transition: transform 0.3s;
+            margin: 10px 0;
+        }
+        
+        .btn-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,107,107,0.5);
+        }
+        
+        .guarantee-inline {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Social Proof */
+        .social-proof {
+            background: #667eea;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .social-proof h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        
+        .testimonial {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .testimonial p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial .author {
+            opacity: 0.9;
+        }
+        
+        /* Guarantee */
+        .guarantee {
+            background: #f8f9fa;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .guarantee-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        
+        .guarantee-box h2 {
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .final-cta .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 30px 0;
+        }
+        
+        /* FAQ */
+        .faq {
+            background: white;
+            padding: 60px 20px;
+        }
+        
+        .faq h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .faq-item {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-item h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        /* Payment Form */
+        #payment-form {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        #card-element {
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        #submit-button {
+            width: 100%;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero .price-tag {
+                font-size: 2.5rem;
+            }
+            .cta-box .price-display {
+                font-size: 2.5rem;
+            }
+            .btn-large {
+                padding: 18px 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Finally, Productivity Advice That Gets Your Brain</h1>
+            <p class="subtitle">Stop fighting yourself. Start working WITH your ADHD. The system that doesn't require willpower, discipline, or "trying harder."</p>
+            <div class="price-tag">$22<span>One-time payment • Instant access</span></div>
+            <button class="btn-primary" onclick="showPayment()">Get Instant Access</button>
+            <p style="margin-top: 20px; opacity: 0.9; font-size: 0.9rem;">✓ 50-page guide ✓ 10 printable tools ✓ 30-day guarantee</p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <h2>Does This Sound Familiar?</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>😰 "I Can't Stick to Any System"</h3>
+                    <p>You've tried planners, apps, routines. They work for a week, then you abandon them. It's not your fault—those systems weren't built for ADHD brains.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>⏰ "I Know What to Do, But I Can't Do It"</h3>
+                    <p>You understand the task. It's important. But your brain literally won't start. The resistance feels physical.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>💔 "I'm Smart, But I Can't Execute"</h3>
+                    <p>Everyone sees your potential. But you start everything and finish nothing. The shame spiral is exhausting.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>😴 "Traditional Advice Makes Me Worse"</h3>
+                    <p>"Just try harder." "Build habits." "Be more disciplined." This advice is for neurotypical brains—and it actively hurts yours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2>Introducing: The Interest-Based Nervous System Approach</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-text">
+                        <h3>Work With Your Brain, Not Against It</h3>
+                        <p>Learn why ADHD brains need interest, urgency, novelty, and challenge—not importance, deadlines, or shame.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-text">
+                        <h3>Body Doubling: Focus With Others</h3>
+                        <p>The secret weapon: how to focus by working alongside others (virtually or in person). No more solo struggle.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <h3>Hyperfocus Management</h3>
+                        <p>Stop wasting your hyperfocus on the wrong things. Channel that intensity into what actually matters.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-text">
+                        <h3>Time Blindness Solutions</h3>
+                        <p>Practical tools to see time, feel time, and stop being late. Visual systems that actually work for your brain.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Inside - UPDATED WITH TOOL NAMES -->
+    <section class="inside">
+        <div class="container">
+            <div class="inside-header">
+                <h2>Your Complete ADHD Productivity Toolkit</h2>
+                <p>10 printable tools + 50-page guide — everything you need to work WITH your brain</p>
+            </div>
+            
+            <!-- 4 Tool Cards with Names -->
+            <div class="tools-grid">
+                <div class="tool-card purple">
+                    <div class="tool-icon">🗓️</div>
+                    <h3>Daily ADHD Planner</h3>
+                    <p>Morning Checklist + Daily Structure + Energy Tracking</p>
+                </div>
+                <div class="tool-card green">
+                    <div class="tool-icon">📊</div>
+                    <h3>Weekly Review System</h3>
+                    <p>Interest Graph + Energy Audit + Week Planning</p>
+                </div>
+                <div class="tool-card orange">
+                    <div class="tool-icon">⚡</div>
+                    <h3>Hyperfocus Tools</h3>
+                    <p>Focus Tracker + Body Doubling Planner + Distraction Log</p>
+                </div>
+                <div class="tool-card blue">
+                    <div class="tool-icon">🆘</div>
+                    <h3>Crisis Support</h3>
+                    <p>Emergency Protocol + Environment Audit + Shutdown Ritual</p>
+                </div>
+            </div>
+            
+            <!-- What's Included List -->
+            <div class="included-section">
+                <h3>📦 Everything Included ($234 Value)</h3>
+                <div class="included-grid">
+                    <div class="included-item">50-Page Implementation Guide</div>
+                    <div class="included-item">ADHD Daily Planner (PDF)</div>
+                    <div class="included-item">Weekly Review Template</div>
+                    <div class="included-item">Hyperfocus Tracker</div>
+                    <div class="included-item">Body Doubling Session Planner</div>
+                    <div class="included-item">Interest Graph Worksheet</div>
+                    <div class="included-item">Energy Audit Tool</div>
+                    <div class="included-item">Distraction Log</div>
+                    <div class="included-item">Environment Audit Checklist</div>
+                    <div class="included-item">Emergency Focus Protocol</div>
+                    <div class="included-item">7-Day Email Support Series</div>
+                    <div class="included-item">Lifetime Updates</div>
+                </div>
+            </div>
+            
+            <!-- CTA Box - Moved UP so no scrolling needed -->
+            <div class="cta-box">
+                <h3>Get Focus Forward Today</h3>
+                <p>Stop fighting your brain. Start achieving with a system built FOR you.</p>
+                <div class="price-display">$22<span>One-time payment • Instant download</span></div>
+                <button class="btn-large" onclick="showPayment()">Get Instant Access</button>
+                <p class="guarantee-inline">🛡️ 30-Day Money-Back Guarantee • Questions? support@zeusmethod.co</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>What Early Readers Are Saying</h2>
+            <div class="testimonial">
+                <p>"For the first time, someone explained WHY I can't stick to routines—and gave me actual alternatives that work. Game changer."</p>
+                <div class="author">— Early Reader, Marketing Director</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-box">
+                <h2>🛡️ 30-Day Money-Back Guarantee</h2>
+                <p>Try the Focus Forward system for 30 days. If you don't find it valuable, email us for a full refund. No questions, no hassle.</p>
+                <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">We only win if you win.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Stop Fighting Your Brain?</h2>
+            <p>Join thousands learning to work WITH their ADHD instead of against it.</p>
+            <div class="price">$22</div>
+            <button class="btn-primary" onclick="showPayment()">Get Focus Forward Now</button>
+            <p style="margin-top: 20px; opacity: 0.9;">✓ Instant PDF download ✓ All 10 printable tools included ✓ Lifetime updates</p>
+        </div>
+    </section>
+
+    <!-- Payment Form -->
+    <div id="payment-form">
+        <h2 style="text-align: center; margin-bottom: 10px;">Complete Your Purchase</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Focus Forward - Complete System</p>
+        <form id="checkout-form">
+            <div id="card-element"></div>
+            <div id="card-errors" style="color: #e74c3c; margin: 10px 0;"></div>
+            <button type="submit" id="submit-button">Pay $22</button>
+        </form>
+        <p style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">🔒 Secure payment by Stripe</p>
+        <p style="text-align: center; margin-top: 10px; font-size: 0.85rem;">
+            <a href="#" onclick="hidePayment(); return false;" style="color: #667eea;">← Back to product page</a>
+        </p>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <h3>Is this only for people with diagnosed ADHD?</h3>
+                <p>No! While designed for ADHD brains, anyone who struggles with traditional productivity advice will benefit. If you feel like you're constantly fighting yourself to get things done, this is for you.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Do I need to be on medication for this to work?</h3>
+                <p>Nope. These strategies work whether you're medicated or not. Many people use them alongside medication for best results.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>How is this different from other productivity books?</h3>
+                <p>Most productivity advice assumes neurotypical brains. This is specifically designed for brains that need interest, novelty, and stimulation—not willpower and discipline.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>What's the format? How do I access it?</h3>
+                <p>Instant PDF download. You'll also get all 10 printable tools as separate PDFs. Access on any device, print what you need.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Zeus Method. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Questions? <a href="mailto:support@zeusmethod.co">support@zeusmethod.co</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const stripe = Stripe('pk_live_51TEBk8RWAlUONUeZE5ivSNsxQZCW2pwzGpeiCmfrJPUxELpSo440yGKQMTsBmVFEaZQrBHof3MnKbaJYJiiWnWHs00PE5vkqx1');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        
+        function showPayment() {
+            document.getElementById('payment-form').style.display = 'block';
+            cardElement.mount('#card-element');
+            document.getElementById('payment-form').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function hidePayment() {
+            document.getElementById('payment-form').style.display = 'none';
+        }
+        
+        const form = document.getElementById('checkout-form');
+        const errorElement = document.getElementById('card-errors');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const {token, error} = await stripe.createToken(cardElement);
+            
+            if (error) {
+                errorElement.textContent = error.message;
+            } else {
+                errorElement.textContent = '';
+                document.getElementById('submit-button').textContent = 'Processing...';
+                
+                setTimeout(() => {
+                    document.getElementById('payment-form').innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+                            <h2>Welcome to Focus Forward!</h2>
+                            <p style="margin: 20px 0; color: #666;">Check your email for instant access to the complete system.</p>
+                            <a href="#" onclick="location.reload();" style="color: #667eea;">Back to homepage</a>
+                        </div>
+                    `;
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
