@@ -861,14 +861,10 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Payment Modal
+        // Payment Modal - Stripe Payment Link
         function openPaymentModal() {
-            // Stripe Checkout redirect
-            const stripe = Stripe('pk_live_51TEBk8RWAlUONUeZE5ivSNsxQZCW2pwzGpeiCmfrJPUxELpSo440yGKQMTsBmVFEaZQrBHof3MnKbaJYJiiWnWHs00PE5vkqx1');
-            
-            // You'll need to create a checkout session on your backend
-            // For now, this is a placeholder that shows an alert
-            alert('Redirecting to secure checkout...\n\nNote: Configure your Stripe backend to complete integration.');
+            // Redirect to Stripe Payment Link
+            window.location.href = 'https://buy.stripe.com/YOUR_PAYMENT_LINK';
         }
     </script>
 </body>
