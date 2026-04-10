@@ -578,7 +578,7 @@
                 <span class="tool-tag">Project Tracker</span>
             </div>
             <div class="tools-cta fade-in">
-                <button class="btn-primary btn-large" onclick="scrollToOffer()">Get All 10 Tools — $22</button>
+                <button class="btn-primary btn-large" onclick="scrollToOffer()">Get All 10 Tools — $17 (Flash Sale)</button>
             </div>
         </div>
     </section>
@@ -589,11 +589,13 @@
                 <div class="offer-content fade-in">
                     <h2>Everything You Need to Transform Your Productivity</h2>
                     <p>Focus Forward isn't just another planner. It's a complete system designed from the ground up for ADHD brains.</p>
-                    <div style="background: rgba(212,175,55,0.15); border: 2px solid var(--accent); border-radius: 16px; padding: 24px; margin: 24px 0; text-align: center;">
-                        <div style="font-size: 0.875rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Limited Time Offer</div>
-                        <div style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: white;">$22</div>
+                    <div style="background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(238,90,36,0.2)); border: 2px solid #ff6b6b; border-radius: 16px; padding: 24px; margin: 24px 0; text-align: center;">
+                        <div style="font-size: 0.875rem; color: #ff6b6b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">⚡ FLASH SALE - 48 HOURS ONLY</div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: #999; text-decoration: line-through;">$22</div>
+                        <div style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: white;">$17</div>
                         <div style="font-size: 0.875rem; color: rgba(255,255,255,0.7); margin-top: 8px;">One-time payment • Instant access</div>
-                        <button class="btn-primary" onclick="document.querySelector('.offer-card').scrollIntoView({behavior: 'smooth'})" style="margin-top: 16px;">Get Instant Access</button>
+                        <div style="font-size: 0.75rem; color: #ff6b6b; margin-top: 8px; font-weight: 600;">⏰ Ends Sunday at Midnight EST</div>
+                        <button class="btn-primary" onclick="document.querySelector('.offer-card').scrollIntoView({behavior: 'smooth'})" style="margin-top: 16px;">Get Flash Sale Access</button>
                     </div>
                     <ul class="offer-list">
                         <li>50-page comprehensive guide</li>
@@ -638,10 +640,15 @@
                         <span class="total-label">Total Value</span>
                         <span class="total-value">$234</span>
                     </div>
+                    <div class="flash-sale-banner" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 12px; border-radius: 8px; margin-bottom: 16px; text-align: center;">
+                        <div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">⚡ FLASH SALE</div>
+                        <div style="font-size: 0.75rem; margin-top: 4px;">Ends Sunday at Midnight</div>
+                    </div>
                     <div class="offer-price">
-                        <div class="price-label">Today's Price</div>
-                        <div class="price-amount">$22</div>
-                        <div class="price-savings">Save 91%</div>
+                        <div class="price-label">Flash Sale Price</div>
+                        <div style="text-decoration: line-through; color: #999; font-size: 1.25rem;">$22</div>
+                        <div class="price-amount">$17</div>
+                        <div class="price-savings">Save 23%</div>
                     </div>
                     <div class="offer-guarantee">
                         <span>🛡️</span>
@@ -762,20 +769,24 @@
             <p class="fade-in">Stop fighting yourself. Start achieving with Focus Forward.</p>
             <div class="final-cta-price fade-in">
                 <span class="original">$234</span>
-                <span class="current">$22</span>
+                <span style="text-decoration: line-through; color: #999;">$22</span>
+                <span class="current" style="color: #ff6b6b;">$17</span>
+            </div>
+            <div class="flash-sale-end" style="color: #ff6b6b; font-weight: 600; margin: 12px 0;">
+                ⚡ Flash Sale Ends Sunday at Midnight
             </div>
             <div class="final-cta-guarantee fade-in">
                 <span>🛡️</span>
                 <span>30-Day Money-Back Guarantee</span>
             </div>
-            <button class="btn-primary btn-large fade-in" onclick="openPaymentModal()">Get Instant Access — $22</button>
+            <button class="btn-primary btn-large fade-in" onclick="openPaymentModal()">Get Flash Sale Access — $17</button>
         </div>
     </section>
 
     <div class="sticky-cta" id="stickyCta">
         <div class="sticky-cta-info">
-            <span>Limited time offer</span>
-            <strong>Focus Forward — $22</strong>
+            <span style="color: #ff6b6b;">⚡ Flash Sale</span>
+            <strong>Focus Forward — $17 <span style="text-decoration: line-through; color: #999; font-size: 0.8em;">$22</span></strong>
         </div>
         <button class="btn-primary" onclick="scrollToOffer()">Get Access</button>
     </div>
@@ -787,11 +798,9 @@
     </footer>
 
     <script>
-        // Countdown Timer
+        // Flash Sale Countdown - Ends Sunday at Midnight EST
         function updateCountdown() {
-            const endDate = new Date();
-            endDate.setHours(endDate.getHours() + 47);
-            endDate.setMinutes(endDate.getMinutes() + 32);
+            const endDate = new Date('2026-04-12T23:59:59-05:00'); // Sunday midnight EST
             
             function calculate() {
                 const now = new Date();
