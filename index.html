@@ -594,7 +594,7 @@
                         <div style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: #999; text-decoration: line-through;">$22</div>
                         <div style="font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: white;">$17</div>
                         <div style="font-size: 0.875rem; color: rgba(255,255,255,0.7); margin-top: 8px;">One-time payment • Instant access</div>
-                        <div style="font-size: 0.75rem; color: #ff6b6b; margin-top: 8px; font-weight: 600;">⏰ Ends Sunday at Midnight EST</div>
+                        <div style="font-size: 0.75rem; color: #ff6b6b; margin-top: 8px; font-weight: 600;">⏰ Flash Sale Ends at Midnight</div>
                         <button class="btn-primary" onclick="openPaymentModal()" style="margin-top: 16px;">Get Instant Access — $17</button>
                     </div>
                     <ul class="offer-list">
@@ -642,7 +642,7 @@
                     </div>
                     <div class="flash-sale-banner" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 12px; border-radius: 8px; margin-bottom: 16px; text-align: center;">
                         <div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">⚡ FLASH SALE</div>
-                        <div style="font-size: 0.75rem; margin-top: 4px;">Ends Sunday at Midnight</div>
+                        <div style="font-size: 0.75rem; margin-top: 4px;">Ends at Midnight</div>
                     </div>
                     <div class="offer-price">
                         <div class="price-label">Flash Sale Price</div>
@@ -773,7 +773,7 @@
                 <span class="current" style="color: #ff6b6b;">$17</span>
             </div>
             <div class="flash-sale-end" style="color: #ff6b6b; font-weight: 600; margin: 12px 0;">
-                ⚡ Flash Sale Ends Sunday at Midnight
+                ⚡ Flash Sale Ends at Midnight
             </div>
             <div class="final-cta-guarantee fade-in">
                 <span>🛡️</span>
@@ -798,9 +798,11 @@
     </footer>
 
     <script>
-        // Flash Sale Countdown - Ends Sunday at Midnight EST
+        // Flash Sale Countdown - Ends at Midnight
         function updateCountdown() {
-            const endDate = new Date('2026-04-12T23:59:59-05:00'); // Sunday midnight EST
+            // Set countdown to tonight at midnight (resets daily)
+            const now = new Date();
+            const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
             
             function calculate() {
                 const now = new Date();
